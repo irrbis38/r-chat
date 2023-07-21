@@ -3,6 +3,7 @@ import { query, collection, orderBy, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 
 import { Message } from "./Message";
+import { SendMessage } from "./SendMessage";
 
 const style = {
   main: `flex flex-col p-[10px] relative`,
@@ -28,9 +29,13 @@ export const Chat = () => {
   return (
     <>
       <main className={style.main}>
-        <Message />
+        {messages &&
+          messages.map((message) => {
+            console.log(message);
+            return <Message key={message.id} message={message} />;
+          })}
       </main>
-
+      <SendMessage scroll={scroll} />
       <span ref={scroll}></span>
     </>
   );
